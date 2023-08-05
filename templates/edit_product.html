@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+{{block.super}}
+<link href="{% static 'css/edit_product.css' %}" rel="stylesheet" type="text/css">
+{% endblock styles %}
+
+{% block content %}
+<ul>
+    {% for item in items %}
+      <li>{{ item.itemname }} - {{ item.description }} - {{ item.price }}</li>
+    {% endfor %}
+    </ul>
+<h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Edit Information</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+  </form>
+{% endblock content %}

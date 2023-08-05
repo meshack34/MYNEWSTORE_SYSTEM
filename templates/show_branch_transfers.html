@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+{{block.super}}
+<title>Inter-Branch Item Transfer</title>
+<link href="{% static 'css/showtransferbranch.css' %}" rel="stylesheet" type="text/css">
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock styles %}
+
+{% block content %}
+
+<body>
+        <div class="float-end">
+            <a href="{% url 'transfer_items' %}">
+              <button type="button" class="btn btn-success"> Transfer Items</button>
+            </a>
+      </div>
+        <h1>Branch Transfer Items</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>From Branch</th>
+                    <th>To Branch</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transfer in transfers %}
+                <tr>
+                    <td>{{ transfer.from_branch }}</td>
+                    <td>{{ transfer.to_branch }}</td>
+                    <td>{{ transfer.item }}</td>
+                    <td>{{ transfer.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="max-width: 500px; margin-bottom: 100px; margin-top: 50px;">
+    <main class="form-signin text-center">
+        <h3 class="text-center mb-3">Sign up</h3>
+        <form method="POST" action="">
+            {% if messages %}
+            {% for msg in messages %}
+            <center>
+                <span style="color:red;">{{ msg }}</span>
+            </center>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                {% csrf_token %}
+                {% for field in service_fields %}
+                <div class="col-md-12 p-2">
+                    {% if field.field_validation == 'required' %}
+                    <label for="{{ field.frontend_narration }}" class="form-label">{{ field.frontend_narration }} <span
+                            style="color: red;">*</span></label>
+                    {% else %}
+                    <label for="{{ field.frontend_narration }}" class="form-label" name="{{field.field_validation}}">{{
+                        field.frontend_narration }}</label>
+                    {% endif %}
+                    <input type="{{ field.field_type }}" name="{{ field.field_shortname }}" class="form-control"
+                        id="{{ field.field_shortname }}" placeholder="{{ field.field_shortname }}"
+                        maxlength="{{field.max_length}}" minlength="{{field.min_length}}" {{field.field_validation}}>
+                </div>
+                {% endfor %}
+            </div>
+            <input type="text" name="service_ID" value="{{ service_metadata.service_ID }}" hidden>
+            <input type="text" name="process_workflow" value="{{ service_metadata.process_workflow }}" hidden>
+            <input type="text" name="total_fees" value="{{ service_metadata.total_fees }}" hidden>
+            <input type="text" name="service_description" value="{{ service_metadata.service_description }}" hidden>
+            <input type="text" name="channel_id" value="{{ service_metadata.channel_id }}" hidden>
+
+            <a href="#">
+                <center> <button type="submit" class="btn btn-primary"> <b>Submit</b></button></center>
+            </a>
+        </form>
+    </main>
+</div>
+{% endblock content %}
